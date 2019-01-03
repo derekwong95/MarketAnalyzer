@@ -42,6 +42,33 @@ namespace AlphaVantageApiWrapper
             return technicalsObject;
         }
 
+        public static async Task<Dictionary<string, Dictionary<string, string>>> GetSector(List<ApiParam> parameters, string apiKey)
+        {
+            var stringRequest = parameters.Aggregate(@"https://www.alphavantage.co/query?", (current, param) => current + param.ToApiString());
+            stringRequest += "&apikey=" + apiKey;
+
+            var apiData = await CallAlphaVantageApi(stringRequest);
+
+            Dictionary<string, Dictionary<string, string>> test = new Dictionary<string, Dictionary<string, string>>();
+            Dictionary<string, string> test2;
+            List<Dictionary<string, string>> test3 = new List<Dictionary<string, string>>();
+            foreach (var dataList in apiData)
+            {
+                test2 = new Dictionary<string, string>();
+                foreach (var data in dataList.Value)
+                {
+                    string[] temp = data.ToString().Split(':');
+                    test2.Add(temp.ElementAt(0), temp.ElementAt(1));
+                }
+
+                test.Add(dataList.Key,test2);
+                //test.Add(dataList.Key, data.Value.);
+            }
+
+
+            return test;
+        }
+
         public class ApiParam
         {
             public string ParamName;
@@ -128,6 +155,7 @@ namespace AlphaVantageApiWrapper
             [EnumDescription("MACD")] Macd,
             [EnumDescription("STOCH")] Stoch,
             [EnumDescription("RSI")] Rsi,
+            [EnumDescription("SECTOR")] Sector
         }
 
         public enum AvIntervalEnum

@@ -45,8 +45,8 @@ namespace MarketAnalyzer
             listItem.SubItems.Add(SMA_5.ToString());
             listItem.SubItems.Add("test");
             //listViewData.Columns.Add("testing");
-            listViewData.Items.Add(SMA_5.ToString());
-            listViewData.View = View.Details;
+            //listViewData.Items.Add(SMA_5.ToString());
+            //listViewData.View = View.Details;
 
         }
 
@@ -55,5 +55,68 @@ namespace MarketAnalyzer
 
         }
 
+        private async void buttonSector_Click(object sender, EventArgs e)
+        {
+            var apiKey = textBoxApiName.Text;
+            ListViewItem item = new ListViewItem();
+
+            var parameters = new List<AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam>
+                {
+                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.Sector.ToDescription()),
+                };
+
+            var sectors = await AlphaVantageApiWrapper.AlphaVantageApiWrapper.GetSector(parameters, apiKey);
+            //parameters.FirstOrDefault(x => x.ParamName == "time_period").ParamValue = "20";
+
+            foreach (var sector in sectors)
+            {
+                for (int i = 0; i < sector.Value.Count; i++)
+                {
+                    item = new ListViewItem(new[] { sector.Value.ElementAt(i).Key, sector.Value.ElementAt(i).Value });
+
+                    switch (sector.Key)
+                    {
+                        case "Rank A: Real-Time Performance":
+                            listViewRealTime.Items.Add(item);
+                            break;
+                        case "Rank B: 1 Day Performance":
+                            listView1Day.Items.Add(item);
+                            break;
+                        case "Rank C: 5 Day Performance":
+                            listView5Day.Items.Add(item);
+                            break;
+                        case "Rank D: 1 Month Performance":
+                            listView1Month.Items.Add(item);
+                            break;
+                        case "Rank E: 3 Month Performance":
+                            listView3Month.Items.Add(item);
+                            break;
+                        case "Rank F: Year-to-Date (YTD) Performance":
+                            listViewYearToDate.Items.Add(item);
+                            break;
+                        case "Rank G: 1 Year Performance":
+                            listView1Year.Items.Add(item);
+                            break;
+                        case "Rank H: 3 Year Performance":
+                            listView3Year.Items.Add(item);
+                            break;
+                        case "Rank I: 5 Year Performance":
+                            listView5Year.Items.Add(item);
+                            break;
+                        case "Rank J: 10 Year Performance":
+                            listView10Year.Items.Add(item);
+                            break;
+                        default:
+                            break;
+                    } 
+                }      
+            }
+       
+            //ListViewItem listItem = new ListViewItem();
+            //listItem.SubItems.Add(sector.ToString());
+            //listItem.SubItems.Add("test");
+
+            listViewRealTime.View = View.Details;
+        }
     }
 }
