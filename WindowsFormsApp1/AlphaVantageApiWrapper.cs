@@ -10,14 +10,14 @@ namespace AlphaVantageApiWrapper
 {
     public static class AlphaVantageApiWrapper
     {
-        public static async Task<AlphaVantageRootObject> GetTechnical(List<ApiParam> parameters, string apiKey)
+        public static async Task<AlphaVantageRootObject> GetGeneralData(List<ApiParam> parameters, string apiKey)
         {
             var stringRequest = parameters.Aggregate(@"https://www.alphavantage.co/query?", (current, param) => current + param.ToApiString());
             stringRequest += "&apikey=" + apiKey;
 
             var apiData = await CallAlphaVantageApi(stringRequest);
 
-            var technicalsObject = new AlphaVantageRootObject
+            var generalObject = new AlphaVantageRootObject
             {
                 MetaData = new MetaData
                 {
@@ -27,7 +27,7 @@ namespace AlphaVantageApiWrapper
                     Symbol = parameters.FirstOrDefault(x => x.ParamName.Equals("symbol"))?.ParamValue ?? "NA?"
                 },
 
-                TechnicalsByDate = apiData.Last.Values().OfType<JProperty>().Select(x => new TechnicalDataDate
+                GeneralByDate = apiData.Last.Values().OfType<JProperty>().Select(x => new GeneralDataDate
                 {
                     Date = Convert.ToDateTime(x.Name),
                     Data = x.Value.OfType<JProperty>().Select(r => new DataObject
@@ -39,7 +39,7 @@ namespace AlphaVantageApiWrapper
                     .ToList()
             };
 
-            return technicalsObject;
+            return generalObject;
         }
 
        // public static async Task<Dictionary<string, Dictionary<string, string>>> GetSector(List<ApiParam> parameters, string apiKey)
@@ -54,7 +54,6 @@ namespace AlphaVantageApiWrapper
             {
                 MetaData = new MetaData
                 {
-                    //Information = apiData.First.Values().OfType<JProperty>().Select(x => x.First().Values().OfType<JProperty>().Select(y => y.Value)).ToString()
                     Information = apiData.First.Values().OfType<JProperty>().Where(x => x.Name == "Information").Select(x => x.Value).ToList().First().ToString(),
                     LastRefreshed = apiData.First.Values().OfType<JProperty>().Where(x => x.Name == "Last Refreshed").Select(x => x.Value).ToList().First().ToString()
                 },
@@ -69,7 +68,6 @@ namespace AlphaVantageApiWrapper
                     }).ToList()
                 })
                     .ToList()
-
             };
             
             return sectorsObject;
@@ -127,7 +125,7 @@ namespace AlphaVantageApiWrapper
         public class AlphaVantageRootObject
         {
             public MetaData MetaData;
-            public List<TechnicalDataDate> TechnicalsByDate;
+            public List<GeneralDataDate> GeneralByDate;
         }
 
         public class MetaData
@@ -146,7 +144,7 @@ namespace AlphaVantageApiWrapper
             public List<DataObject> Data;
         }
 
-        public class TechnicalDataDate
+        public class GeneralDataDate
         {
             public DateTime Date;
             public List<DataObject> Data;
@@ -175,7 +173,9 @@ namespace AlphaVantageApiWrapper
             [EnumDescription("MACD")] Macd,
             [EnumDescription("STOCH")] Stoch,
             [EnumDescription("RSI")] Rsi,
-            [EnumDescription("SECTOR")] Sector
+            [EnumDescription("SECTOR")] Sector,
+            [EnumDescription("TIME_SERIES_INTRADAY")] TimeSeriesIntraday,
+            [EnumDescription("TIME_SERIES_DAILY")] TimeSeriesDaily
         }
 
         public enum AvIntervalEnum
