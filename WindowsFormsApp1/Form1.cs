@@ -112,5 +112,51 @@ namespace MarketAnalyzer
             }
         }
 
+        private async void loadGraph_Click(object sender, EventArgs e)
+        {
+            var apiKey = textBoxApiName.Text;
+            ListViewItem item = new ListViewItem();
+
+            var parameters = new List<AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam>
+                {
+                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.Sma.ToDescription()),
+                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("symbol", "AAPL"),
+                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("interval", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvIntervalEnum.Daily.ToDescription()),
+                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("time_period", "5"),
+                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("series_type", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvSeriesType.Open.ToDescription()),
+                };
+            parameters.FirstOrDefault(x => x.ParamName == "function").ParamValue = AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.Stoch.ToDescription();
+            var stock = await AlphaVantageApiWrapper.AlphaVantageApiWrapper.GetTechnical(parameters, apiKey);
+
+            var stocks = stock.TechnicalsByDate;
+            var test = stocks;
+            //parameters.FirstOrDefault(x => x.ParamName == "time_period").ParamValue = "20";
+            /*
+            foreach (var stocks in stock)
+            {
+                for (int i = 0; i < stocks.Value.Count; i++)
+                {
+                    switch (stocks.Key)
+                    {
+                        case "Rank A: Real-Time Performance":
+                            var test = stocks.Value.ElementAt(i).Key;
+                            var test2 = stocks.Value.ElementAt(i).Value;
+
+                            test2 = test2.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.PercentSymbol, "");
+                            test2 = test2.Replace("\"", string.Empty);
+                  
+                            Console.WriteLine(test2);
+
+                            Double.TryParse(test2, out Double result);
+                            this.chart1.Series["Apple"].Points.AddXY(stocks.Value.ElementAt(i).Key, result);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            */
+
+        }
     }
 }
