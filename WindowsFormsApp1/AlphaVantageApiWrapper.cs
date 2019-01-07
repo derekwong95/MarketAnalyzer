@@ -21,52 +21,58 @@ namespace AlphaVantageApiWrapper
             {
                 MetaData = new MetaData
                 {
-                    Function = parameters.FirstOrDefault(x => x.ParamName.Equals("function"))?.ParamValue??"NA?",
-                    Interval = parameters.FirstOrDefault(x => x.ParamName.Equals("interval"))?.ParamValue?? "NA?",
-                    SeriesType = parameters.FirstOrDefault(x => x.ParamName.Equals("series_type"))?.ParamValue?? "NA?",
-                    Symbol = parameters.FirstOrDefault(x => x.ParamName.Equals("symbol"))?.ParamValue?? "NA?"
+                    Function = parameters.FirstOrDefault(x => x.ParamName.Equals("function"))?.ParamValue ?? "NA?",
+                    Interval = parameters.FirstOrDefault(x => x.ParamName.Equals("interval"))?.ParamValue ?? "NA?",
+                    SeriesType = parameters.FirstOrDefault(x => x.ParamName.Equals("series_type"))?.ParamValue ?? "NA?",
+                    Symbol = parameters.FirstOrDefault(x => x.ParamName.Equals("symbol"))?.ParamValue ?? "NA?"
                 },
 
                 TechnicalsByDate = apiData.Last.Values().OfType<JProperty>().Select(x => new TechnicalDataDate
+                {
+                    Date = Convert.ToDateTime(x.Name),
+                    Data = x.Value.OfType<JProperty>().Select(r => new DataObject
                     {
-                        Date = Convert.ToDateTime(x.Name),
-                        Data = x.Value.OfType<JProperty>().Select(r => new TechnicalDataObject
-                        {
-                            TechnicalKey = r.Name,
-                            TechnicalValue = Convert.ToDouble(r.Value.ToString())
-                        }).ToList()
-                    })
+                        Key = r.Name,
+                        Value = Convert.ToDouble(r.Value.ToString())
+                    }).ToList()
+                })
                     .ToList()
             };
 
             return technicalsObject;
         }
 
-        public static async Task<Dictionary<string, Dictionary<string, string>>> GetSector(List<ApiParam> parameters, string apiKey)
+       // public static async Task<Dictionary<string, Dictionary<string, string>>> GetSector(List<ApiParam> parameters, string apiKey)
+        public static async Task<AlphaVantageObject> GetSector(List<ApiParam> parameters, string apiKey)
         {
             var stringRequest = parameters.Aggregate(@"https://www.alphavantage.co/query?", (current, param) => current + param.ToApiString());
             stringRequest += "&apikey=" + apiKey;
 
             var apiData = await CallAlphaVantageApi(stringRequest);
 
-            Dictionary<string, Dictionary<string, string>> test = new Dictionary<string, Dictionary<string, string>>();
-            Dictionary<string, string> test2;
-            List<Dictionary<string, string>> test3 = new List<Dictionary<string, string>>();
-            foreach (var dataList in apiData)
+            var sectorsObject = new AlphaVantageObject
             {
-                test2 = new Dictionary<string, string>();
-                foreach (var data in dataList.Value)
+                MetaData = new MetaData
                 {
-                    string[] temp = data.ToString().Split(':');
-                    test2.Add(temp.ElementAt(0), temp.ElementAt(1));
-                }
+                    //Information = apiData.First.Values().OfType<JProperty>().Select(x => x.First().Values().OfType<JProperty>().Select(y => y.Value)).ToString()
+                    Information = apiData.First.Values().OfType<JProperty>().Where(x => x.Name == "Information").Select(x => x.Value).ToList().First().ToString(),
+                    LastRefreshed = apiData.First.Values().OfType<JProperty>().Where(x => x.Name == "Last Refreshed").Select(x => x.Value).ToList().First().ToString()
+                },
+                
+                SectorData = apiData.OfType<JProperty>().Where(x => x.Name != "Meta Data").Select(x => new SectorData 
+                {
+                    TimeRange = x.Name,
+                    Data = x.Values().OfType<JProperty>().Select(r => new DataObject
+                    {
+                        Key = r.Name,
+                        Value = Convert.ToDouble(r.Value.ToString().Replace('%', ' '))
+                    }).ToList()
+                })
+                    .ToList()
 
-                test.Add(dataList.Key,test2);
-                //test.Add(dataList.Key, data.Value.);
-            }
-
-
-            return test;
+            };
+            
+            return sectorsObject;
         }
 
         public class ApiParam
@@ -112,6 +118,12 @@ namespace AlphaVantageApiWrapper
             }
         }
 
+        public class AlphaVantageObject
+        {
+            public MetaData MetaData;
+            public List<SectorData> SectorData;
+        }
+
         public class AlphaVantageRootObject
         {
             public MetaData MetaData;
@@ -124,18 +136,26 @@ namespace AlphaVantageApiWrapper
             public string Interval;
             public string SeriesType;
             public string Symbol;
+            public string Information;
+            public string LastRefreshed;
+        }
+
+        public class SectorData
+        {
+            public string TimeRange;
+            public List<DataObject> Data;
         }
 
         public class TechnicalDataDate
         {
             public DateTime Date;
-            public List<TechnicalDataObject> Data;
+            public List<DataObject> Data;
         }
 
-        public class TechnicalDataObject
+        public class DataObject
         {
-            public string TechnicalKey { get; set; }
-            public double TechnicalValue { get; set; }
+            public string Key { get; set; }
+            public double Value { get; set; }
         }
 
         public class EnumDescription : Attribute
