@@ -79,16 +79,16 @@ namespace MarketAnalyzer
                             listViewRealTime.Items.Add(item);
                             break;
                         case "Rank B: 1 Day Performance":
-                            listView1Day.Items.Add(item);
+                            //listView1Day.Items.Add(item);
                             break;
                         case "Rank C: 5 Day Performance":
                             //listView5Day.Items.Add(item);
                             break;
                         case "Rank D: 1 Month Performance":
-                            listView1Month.Items.Add(item);
+                            //listView1Month.Items.Add(item);
                             break;
                         case "Rank E: 3 Month Performance":
-                            listView3Month.Items.Add(item);
+                            //listView3Month.Items.Add(item);
                             break;
                         case "Rank F: Year-to-Date (YTD) Performance":
                             //listViewYearToDate.Items.Add(item);
@@ -97,13 +97,13 @@ namespace MarketAnalyzer
                             //listView1Year.Items.Add(item);
                             break;
                         case "Rank H: 3 Year Performance":
-                            listView3Year.Items.Add(item);
+                            //listView3Year.Items.Add(item);
                             break;
                         case "Rank I: 5 Year Performance":
-                            listView5Year.Items.Add(item);
+                            //listView5Year.Items.Add(item);
                             break;
                         case "Rank J: 10 Year Performance":
-                            listView10Year.Items.Add(item);
+                            //listView10Year.Items.Add(item);
                             break;
                         default:
                             break;
@@ -126,9 +126,9 @@ namespace MarketAnalyzer
                     new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("series_type", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvSeriesType.Open.ToDescription()),
                 };
             parameters.FirstOrDefault(x => x.ParamName == "function").ParamValue = AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.Stoch.ToDescription();
-            var stock = await AlphaVantageApiWrapper.AlphaVantageApiWrapper.GetTechnical(parameters, apiKey);
+            var stock = await AlphaVantageApiWrapper.AlphaVantageApiWrapper.GetGeneralData(parameters, apiKey);
 
-            var stocks = stock.TechnicalsByDate;
+            var stocks = stock.GeneralByDate;
             var test = stocks;
             //parameters.FirstOrDefault(x => x.ParamName == "time_period").ParamValue = "20";
             /*
