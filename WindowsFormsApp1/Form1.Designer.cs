@@ -53,8 +53,8 @@
             this.columnHeaderRealTimeName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderRealTimeValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.loadGraph = new System.Windows.Forms.Button();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabControl1.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -258,6 +258,16 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // loadGraph
+            // 
+            this.loadGraph.Location = new System.Drawing.Point(838, 122);
+            this.loadGraph.Name = "loadGraph";
+            this.loadGraph.Size = new System.Drawing.Size(255, 40);
+            this.loadGraph.TabIndex = 1;
+            this.loadGraph.Text = "Load Graph";
+            this.loadGraph.UseVisualStyleBackColor = true;
+            this.loadGraph.Click += new System.EventHandler(this.loadGraph_Click);
+            // 
             // chart1
             // 
             chartArea1.Name = "ChartArea1";
@@ -265,7 +275,7 @@
             legend1.DockedToChartArea = "ChartArea1";
             legend1.Name = "Apple";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(27, 25);
+            this.chart1.Location = new System.Drawing.Point(42, 25);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
@@ -281,16 +291,6 @@
             title1.Name = "Stock Price";
             title1.Text = "Stock Price";
             this.chart1.Titles.Add(title1);
-            // 
-            // loadGraph
-            // 
-            this.loadGraph.Location = new System.Drawing.Point(838, 122);
-            this.loadGraph.Name = "loadGraph";
-            this.loadGraph.Size = new System.Drawing.Size(255, 40);
-            this.loadGraph.TabIndex = 1;
-            this.loadGraph.Text = "Load Graph";
-            this.loadGraph.UseVisualStyleBackColor = true;
-            this.loadGraph.Click += new System.EventHandler(this.loadGraph_Click);
             // 
             // Form1
             // 
