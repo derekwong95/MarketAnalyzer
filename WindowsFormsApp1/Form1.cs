@@ -31,14 +31,14 @@ namespace MarketAnalyzer
 
             var parameters = new List<AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam>
                 {
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.Sma.ToDescription()),
+                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.TimeSeriesDaily.ToDescription()),
                     new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("symbol", "AAPL"),
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("interval", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvIntervalEnum.Daily.ToDescription()),
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("time_period", "5"),
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("series_type", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvSeriesType.Open.ToDescription()),
+                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("interval", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvIntervalEnum.FiveMinutes.ToDescription()),
+                    //new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("time_period", "5"),
+                   // new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("series_type", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvSeriesType.Open.ToDescription()),
                 };
 
-            var SMA_5 = await AlphaVantageApiWrapper.AlphaVantageApiWrapper.GetTechnical(parameters, API_KEY);
+            var SMA_5 = await AlphaVantageApiWrapper.AlphaVantageApiWrapper.GetGeneralData(parameters, API_KEY);
             parameters.FirstOrDefault(x => x.ParamName == "time_period").ParamValue = "20";
 
             ListViewItem listItem = new ListViewItem();
@@ -66,15 +66,14 @@ namespace MarketAnalyzer
                 };
 
             var sectors = await AlphaVantageApiWrapper.AlphaVantageApiWrapper.GetSector(parameters, apiKey);
-            //parameters.FirstOrDefault(x => x.ParamName == "time_period").ParamValue = "20";
 
-            foreach (var sector in sectors)
+            foreach (var sector in sectors.SectorData)
             {
-                for (int i = 0; i < sector.Value.Count; i++)
+                foreach (var category in sector.Data)
                 {
-                    item = new ListViewItem(new[] { sector.Value.ElementAt(i).Key, sector.Value.ElementAt(i).Value });
+                    item = new ListViewItem(new[] { category.Key, String.Concat(category.Value.ToString(), '%') });
 
-                    switch (sector.Key)
+                    switch (sector.TimeRange)
                     {
                         case "Rank A: Real-Time Performance":
                             listViewRealTime.Items.Add(item);
@@ -83,7 +82,7 @@ namespace MarketAnalyzer
                             listView1Day.Items.Add(item);
                             break;
                         case "Rank C: 5 Day Performance":
-                            listView5Day.Items.Add(item);
+                            //listView5Day.Items.Add(item);
                             break;
                         case "Rank D: 1 Month Performance":
                             listView1Month.Items.Add(item);
@@ -92,10 +91,10 @@ namespace MarketAnalyzer
                             listView3Month.Items.Add(item);
                             break;
                         case "Rank F: Year-to-Date (YTD) Performance":
-                            listViewYearToDate.Items.Add(item);
+                            //listViewYearToDate.Items.Add(item);
                             break;
                         case "Rank G: 1 Year Performance":
-                            listView1Year.Items.Add(item);
+                            //listView1Year.Items.Add(item);
                             break;
                         case "Rank H: 3 Year Performance":
                             listView3Year.Items.Add(item);
@@ -111,12 +110,6 @@ namespace MarketAnalyzer
                     } 
                 }      
             }
-       
-            //ListViewItem listItem = new ListViewItem();
-            //listItem.SubItems.Add(sector.ToString());
-            //listItem.SubItems.Add("test");
-
-            listViewRealTime.View = View.Details;
         }
 
         private async void loadGraph_Click(object sender, EventArgs e)
