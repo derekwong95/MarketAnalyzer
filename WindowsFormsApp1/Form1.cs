@@ -31,14 +31,14 @@ namespace MarketAnalyzer
 
             var parameters = new List<AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam>
                 {
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.Sma.ToDescription()),
+                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.TimeSeriesDaily.ToDescription()),
                     new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("symbol", "AAPL"),
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("interval", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvIntervalEnum.Daily.ToDescription()),
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("time_period", "5"),
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("series_type", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvSeriesType.Open.ToDescription()),
+                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("interval", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvIntervalEnum.FiveMinutes.ToDescription()),
+                    //new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("time_period", "5"),
+                   // new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("series_type", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvSeriesType.Open.ToDescription()),
                 };
 
-            var SMA_5 = await AlphaVantageApiWrapper.AlphaVantageApiWrapper.GetTechnical(parameters, API_KEY);
+            var SMA_5 = await AlphaVantageApiWrapper.AlphaVantageApiWrapper.GetGeneralData(parameters, API_KEY);
             parameters.FirstOrDefault(x => x.ParamName == "time_period").ParamValue = "20";
 
             ListViewItem listItem = new ListViewItem();
@@ -66,12 +66,12 @@ namespace MarketAnalyzer
                 };
 
             var sectors = await AlphaVantageApiWrapper.AlphaVantageApiWrapper.GetSector(parameters, apiKey);
-            
+
             foreach (var sector in sectors.SectorData)
             {
-                for (int i = 0; i < sector.Data.Count; i++)
+                foreach (var category in sector.Data)
                 {
-                    item = new ListViewItem(new[] { sector.Data.ElementAt(i).Key, String.Concat(sector.Data.ElementAt(i).Value.ToString(), '%') });
+                    item = new ListViewItem(new[] { category.Key, String.Concat(category.Value.ToString(), '%') });
 
                     switch (sector.TimeRange)
                     {
