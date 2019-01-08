@@ -28,23 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.labelApiName = new System.Windows.Forms.Label();
             this.textBoxApiName = new System.Windows.Forms.TextBox();
             this.buttonSubmit = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.listViewRealTime = new System.Windows.Forms.ListView();
+            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
             this.buttonSector = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.loadGraph = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.listViewRealTime = new System.Windows.Forms.ListView();
-            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -104,6 +104,20 @@
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
             // 
+            // listViewRealTime
+            // 
+            this.listViewRealTime.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderName,
+            this.columnHeaderValue});
+            this.listViewRealTime.FullRowSelect = true;
+            this.listViewRealTime.GridLines = true;
+            this.listViewRealTime.Location = new System.Drawing.Point(6, 73);
+            this.listViewRealTime.Name = "listViewRealTime";
+            this.listViewRealTime.Size = new System.Drawing.Size(390, 547);
+            this.listViewRealTime.TabIndex = 12;
+            this.listViewRealTime.UseCompatibleStateImageBehavior = false;
+            this.listViewRealTime.View = System.Windows.Forms.View.Details;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -133,12 +147,12 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(1342, 628);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Stock Information";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // loadGraph
             // 
-            this.loadGraph.Location = new System.Drawing.Point(838, 122);
+            this.loadGraph.Location = new System.Drawing.Point(542, 0);
             this.loadGraph.Name = "loadGraph";
             this.loadGraph.Size = new System.Drawing.Size(255, 40);
             this.loadGraph.TabIndex = 1;
@@ -148,41 +162,30 @@
             // 
             // chart1
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            legend3.DockedToChartArea = "ChartArea1";
-            legend3.Name = "Apple";
-            this.chart1.Legends.Add(legend3);
-            this.chart1.Location = new System.Drawing.Point(27, 25);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.DockedToChartArea = "ChartArea1";
+            legend2.Name = "Apple";
+            this.chart1.Legends.Add(legend2);
+            this.chart1.Location = new System.Drawing.Point(11, 61);
             this.chart1.Name = "chart1";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series3.Legend = "Apple";
-            series3.Name = "Apple";
-            this.chart1.Series.Add(series3);
-            this.chart1.Size = new System.Drawing.Size(737, 524);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.IsXValueIndexed = true;
+            series2.Legend = "Apple";
+            series2.Name = "Apple";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.chart1.Series.Add(series2);
+            this.chart1.Size = new System.Drawing.Size(1335, 524);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
-            title3.BackColor = System.Drawing.Color.Transparent;
-            title3.BorderWidth = 10;
-            title3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            title3.Name = "Stock Price";
-            title3.Text = "Stock Price";
-            this.chart1.Titles.Add(title3);
-            // 
-            // listViewRealTime
-            // 
-            this.listViewRealTime.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderName,
-            this.columnHeaderValue});
-            this.listViewRealTime.FullRowSelect = true;
-            this.listViewRealTime.GridLines = true;
-            this.listViewRealTime.Location = new System.Drawing.Point(6, 73);
-            this.listViewRealTime.Name = "listViewRealTime";
-            this.listViewRealTime.Size = new System.Drawing.Size(390, 547);
-            this.listViewRealTime.TabIndex = 12;
-            this.listViewRealTime.UseCompatibleStateImageBehavior = false;
-            this.listViewRealTime.View = System.Windows.Forms.View.Details;
+            title2.BackColor = System.Drawing.Color.Transparent;
+            title2.BorderWidth = 10;
+            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            title2.Name = "Stock Price";
+            title2.Text = "Stock Price";
+            this.chart1.Titles.Add(title2);
             // 
             // Form1
             // 
