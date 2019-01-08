@@ -119,44 +119,37 @@ namespace MarketAnalyzer
 
             var parameters = new List<AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam>
                 {
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.Sma.ToDescription()),
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("symbol", "AAPL"),
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("interval", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvIntervalEnum.Daily.ToDescription()),
+                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.TimeSeriesIntraday.ToDescription()),
+                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("symbol", "MSFT"),
+                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("interval", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvIntervalEnum.FiveMinutes.ToDescription()),
                     new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("time_period", "5"),
                     new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("series_type", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvSeriesType.Open.ToDescription()),
                 };
-            parameters.FirstOrDefault(x => x.ParamName == "function").ParamValue = AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.Stoch.ToDescription();
+            //parameters.FirstOrDefault(x => x.ParamName == "function").ParamValue = AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.Stoch.ToDescription();
             var stock = await AlphaVantageApiWrapper.AlphaVantageApiWrapper.GetGeneralData(parameters, apiKey);
 
-            var stocks = stock.GeneralByDate;
-            var test = stocks;
-            //parameters.FirstOrDefault(x => x.ParamName == "time_period").ParamValue = "20";
-            /*
-            foreach (var stocks in stock)
+            foreach (var stocks in stock.GeneralByDate)
             {
-                for (int i = 0; i < stocks.Value.Count; i++)
+                foreach (var stockInfo in stocks.Data)
                 {
-                    switch (stocks.Key)
+                    if (stockInfo.Key == "1. open")
                     {
-                        case "Rank A: Real-Time Performance":
-                            var test = stocks.Value.ElementAt(i).Key;
-                            var test2 = stocks.Value.ElementAt(i).Value;
+                        double price = stockInfo.Value;
+                        DateTime dateTime = stocks.Date;
+                
+                        this.chart1.Series["Apple"].Points.AddXY(dateTime, price);
+                        this.chart1.ChartAreas[0].AxisX.IsReversed = true;
 
-                            test2 = test2.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.PercentSymbol, "");
-                            test2 = test2.Replace("\"", string.Empty);
-                  
-                            Console.WriteLine(test2);
-
-                            Double.TryParse(test2, out Double result);
-                            this.chart1.Series["Apple"].Points.AddXY(stocks.Value.ElementAt(i).Key, result);
-                            break;
-                        default:
-                            break;
-                    }
+                        //Double.TryParse(test2, out Double result);
+                        this.chart1.ChartAreas[0].AxisX.LabelStyle.Format = "MM/dd/yyyy HH:mm:ss";
+                        //this.chart1.ChartAreas[0].AxisX.Interval = 1;
+                        //this.chart1.ChartAreas[0].AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Days;
+                        this.chart1.ChartAreas[0].AxisX.IntervalOffset = 1;
+                          }
                 }
             }
-            */
-
+            this.chart1.ChartAreas[0].AxisY.Maximum = 104;
+            this.chart1.ChartAreas[0].AxisY.Minimum = 100;
         }
     }
 }
