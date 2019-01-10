@@ -1,4 +1,5 @@
-﻿using AlphaVantageApiWrapper;
+﻿using WindowsFormsApp1.Libraries;
+using WindowsFormsApp1.UserControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,18 @@ namespace MarketAnalyzer
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //add all the tabs here
+            addnewtab();
+        }
 
+        public void addnewtab()
+        {
+            GeneralTabControl myUserControl = new GeneralTabControl();
+            myUserControl.Dock = DockStyle.Fill;
+            TabPage myTabPage = new TabPage();//Create new tabpage
+            myTabPage.Controls.Add(myUserControl);
+            myTabPage.Text = "General";
+            tabControl1.Controls.Add(myTabPage);
         }
 
         private async void buttonSubmit_Click(object sender, EventArgs e)
@@ -29,16 +41,16 @@ namespace MarketAnalyzer
 
             var StockTickers = new List<string> { "AAPL" };
 
-            var parameters = new List<AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam>
+            var parameters = new List<AlphaVantageApiWrapper.ApiParam>
                 {
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.TimeSeriesDaily.ToDescription()),
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("symbol", "AAPL"),
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("interval", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvIntervalEnum.FiveMinutes.ToDescription()),
+                    new AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AvFuncationEnum.TimeSeriesDaily.ToDescription()),
+                    new AlphaVantageApiWrapper.ApiParam("symbol", "AAPL"),
+                    new AlphaVantageApiWrapper.ApiParam("interval", AlphaVantageApiWrapper.AvIntervalEnum.FiveMinutes.ToDescription()),
                     //new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("time_period", "5"),
                    // new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("series_type", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvSeriesType.Open.ToDescription()),
                 };
 
-            var SMA_5 = await AlphaVantageApiWrapper.AlphaVantageApiWrapper.GetGeneralData(parameters, API_KEY);
+            var SMA_5 = await AlphaVantageApiWrapper.GetGeneralData(parameters, API_KEY);
             parameters.FirstOrDefault(x => x.ParamName == "time_period").ParamValue = "20";
 
             ListViewItem listItem = new ListViewItem();
@@ -52,20 +64,24 @@ namespace MarketAnalyzer
 
         private void textBoxApiName_TextChanged(object sender, EventArgs e)
         {
+            var c = Singleton.Instance;
+            c.Set(textBoxApiName.Text);
 
+            var a = c.Get();
         }
 
         private async void buttonSector_Click(object sender, EventArgs e)
         {
+            addnewtab();
             var apiKey = textBoxApiName.Text;
             ListViewItem item = new ListViewItem();
 
-            var parameters = new List<AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam>
+            var parameters = new List<AlphaVantageApiWrapper.ApiParam>
                 {
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.Sector.ToDescription()),
+                    new AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AvFuncationEnum.Sector.ToDescription()),
                 };
 
-            var sectors = await AlphaVantageApiWrapper.AlphaVantageApiWrapper.GetSector(parameters, apiKey);
+            var sectors = await AlphaVantageApiWrapper.GetSector(parameters, apiKey);
 
             foreach (var sector in sectors.SectorData)
             {
@@ -117,16 +133,16 @@ namespace MarketAnalyzer
             var apiKey = textBoxApiName.Text;
             ListViewItem item = new ListViewItem();
 
-            var parameters = new List<AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam>
+            var parameters = new List<AlphaVantageApiWrapper.ApiParam>
                 {
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.Sma.ToDescription()),
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("symbol", "AAPL"),
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("interval", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvIntervalEnum.Daily.ToDescription()),
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("time_period", "5"),
-                    new AlphaVantageApiWrapper.AlphaVantageApiWrapper.ApiParam("series_type", AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvSeriesType.Open.ToDescription()),
+                    new AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AvFuncationEnum.Sma.ToDescription()),
+                    new AlphaVantageApiWrapper.ApiParam("symbol", "AAPL"),
+                    new AlphaVantageApiWrapper.ApiParam("interval", AlphaVantageApiWrapper.AvIntervalEnum.Daily.ToDescription()),
+                    new AlphaVantageApiWrapper.ApiParam("time_period", "5"),
+                    new AlphaVantageApiWrapper.ApiParam("series_type", AlphaVantageApiWrapper.AvSeriesType.Open.ToDescription()),
                 };
-            parameters.FirstOrDefault(x => x.ParamName == "function").ParamValue = AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.Stoch.ToDescription();
-            var stock = await AlphaVantageApiWrapper.AlphaVantageApiWrapper.GetGeneralData(parameters, apiKey);
+            parameters.FirstOrDefault(x => x.ParamName == "function").ParamValue = AlphaVantageApiWrapper.AvFuncationEnum.Stoch.ToDescription();
+            var stock = await AlphaVantageApiWrapper.GetGeneralData(parameters, apiKey);
 
             var stocks = stock.GeneralByDate;
             var test = stocks;
