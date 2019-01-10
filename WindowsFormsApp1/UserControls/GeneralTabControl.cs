@@ -39,34 +39,34 @@ namespace WindowsFormsApp1.UserControls
                     switch (sector.TimeRange)
                     {
                         case "Rank A: Real-Time Performance":
-                            listView1.Items.Add(item);
+                            listViewRealTime.Items.Add(item);
                             break;
                         case "Rank B: 1 Day Performance":
                             //listView1Day.Items.Add(item);
                             break;
                         case "Rank C: 5 Day Performance":
-                            //listView5Day.Items.Add(item);
+                            listView5Day.Items.Add(item);
                             break;
                         case "Rank D: 1 Month Performance":
-                            //listView1Month.Items.Add(item);
+                            listView1Month.Items.Add(item);
                             break;
                         case "Rank E: 3 Month Performance":
-                            //listView3Month.Items.Add(item);
+                            listView3Month.Items.Add(item);
                             break;
                         case "Rank F: Year-to-Date (YTD) Performance":
-                            //listViewYearToDate.Items.Add(item);
+                            listViewYearToDate.Items.Add(item);
                             break;
                         case "Rank G: 1 Year Performance":
-                            //listView1Year.Items.Add(item);
+                            listView1Year.Items.Add(item);
                             break;
                         case "Rank H: 3 Year Performance":
-                            //listView3Year.Items.Add(item);
+                            listView3Year.Items.Add(item);
                             break;
                         case "Rank I: 5 Year Performance":
-                            //listView5Year.Items.Add(item);
+                            listView5Year.Items.Add(item);
                             break;
                         case "Rank J: 10 Year Performance":
-                            //listView10Year.Items.Add(item);
+                            listView10Year.Items.Add(item);
                             break;
                         default:
                             break;
