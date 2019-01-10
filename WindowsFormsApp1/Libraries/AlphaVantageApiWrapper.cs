@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace AlphaVantageApiWrapper
+namespace WindowsFormsApp1.Libraries
 {
     public static class AlphaVantageApiWrapper
     {

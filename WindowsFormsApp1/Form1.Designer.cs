@@ -43,12 +43,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.buttonSector = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.loadGraph = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabControl1.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.tabPageGeneral.SuspendLayout();
+            this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelApiName
@@ -187,6 +188,17 @@
             title2.Text = "Stock Price";
             this.chart1.Titles.Add(title2);
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPageGeneral);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tabControl1.Location = new System.Drawing.Point(0, 30);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1350, 654);
+            this.tabControl1.TabIndex = 4;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -198,14 +210,15 @@
             this.Controls.Add(this.textBoxApiName);
             this.Controls.Add(this.labelApiName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Market Analyzer";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPageGeneral.ResumeLayout(false);
-            this.tabPageGeneral.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.tabPageGeneral.ResumeLayout(false);
+            this.tabPageGeneral.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,18 +229,16 @@
         private System.Windows.Forms.Label labelApiName;
         private System.Windows.Forms.TextBox textBoxApiName;
         private System.Windows.Forms.Button buttonSubmit;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPageGeneral;
-        private System.Windows.Forms.Button buttonSector;
-
+        public System.Windows.Forms.TabPage tabPage2;
         public System.Windows.Forms.Button loadGraph;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        public System.Windows.Forms.TabPage tabPage2;
-
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TabPage tabPageGeneral;
         private System.Windows.Forms.ListView listViewRealTime;
         private System.Windows.Forms.ColumnHeader columnHeaderName;
         private System.Windows.Forms.ColumnHeader columnHeaderValue;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonSector;
+        private System.Windows.Forms.TabControl tabControl1;
     }
 }
 
