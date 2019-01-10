@@ -50,15 +50,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlphaVantageApiWrapper.cs" />
+    <Compile Include="Helper\InsertTab.cs" />
+    <Compile Include="Libraries\AlphaVantageApiWrapper.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\ApiKeySingleton.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\ChartTabControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ChartTabControl.Designer.cs">
+      <DependentUpon>ChartTabControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\GeneralTabControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\GeneralTabControl.Designer.cs">
+      <DependentUpon>GeneralTabControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TestTabControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TestTabControl.Designer.cs">
+      <DependentUpon>TestTabControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -71,6 +91,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControls\ChartTabControl.resx">
+      <DependentUpon>ChartTabControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\GeneralTabControl.resx">
+      <DependentUpon>GeneralTabControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TestTabControl.resx">
+      <DependentUpon>TestTabControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
