@@ -42,7 +42,7 @@ namespace WindowsFormsApp1.Libraries
             return generalObject;
         }
 
-       // public static async Task<Dictionary<string, Dictionary<string, string>>> GetSector(List<ApiParam> parameters, string apiKey)
+        // public static async Task<Dictionary<string, Dictionary<string, string>>> GetSector(List<ApiParam> parameters, string apiKey)
         public static async Task<AlphaVantageObject> GetSector(List<ApiParam> parameters, string apiKey)
         {
             var stringRequest = parameters.Aggregate(@"https://www.alphavantage.co/query?", (current, param) => current + param.ToApiString());
@@ -57,8 +57,8 @@ namespace WindowsFormsApp1.Libraries
                     Information = apiData.First.Values().OfType<JProperty>().Where(x => x.Name == "Information").Select(x => x.Value).ToList().First().ToString(),
                     LastRefreshed = apiData.First.Values().OfType<JProperty>().Where(x => x.Name == "Last Refreshed").Select(x => x.Value).ToList().First().ToString()
                 },
-                
-                SectorData = apiData.OfType<JProperty>().Where(x => x.Name != "Meta Data").Select(x => new SectorData 
+
+                SectorData = apiData.OfType<JProperty>().Where(x => x.Name != "Meta Data").Select(x => new SectorData
                 {
                     TimeRange = x.Name,
                     Data = x.Values().OfType<JProperty>().Select(r => new DataObject
@@ -69,9 +69,30 @@ namespace WindowsFormsApp1.Libraries
                 })
                     .ToList()
             };
-            
+
             return sectorsObject;
         }
+
+        public static async Task<AlphaVantageSearchObject> GetEndPoint(List<ApiParam> parameters, string apiKey)
+        {
+            var stringRequest = parameters.Aggregate(@"https://www.alphavantage.co/query?", (current, param) => current + param.ToApiString());
+            stringRequest += "&apikey=" + apiKey;
+
+            var apiData = await CallAlphaVantageApi(stringRequest);
+
+            var endPointObject = new AlphaVantageSearchObject
+            {
+                BestMatchesData = new BestMatchesData
+                {
+                    nameCheck = apiData.First.Values().OfType<JProperty>().Where(x => x.Name == "bestMatches").ToString(),
+
+                }
+
+            };
+
+            return endPointObject;
+        }
+
 
         public class ApiParam
         {
@@ -116,6 +137,11 @@ namespace WindowsFormsApp1.Libraries
             }
         }
 
+        public class AlphaVantageSearchObject
+        {
+            public BestMatchesData BestMatchesData;
+        }
+
         public class AlphaVantageObject
         {
             public MetaData MetaData;
@@ -136,6 +162,12 @@ namespace WindowsFormsApp1.Libraries
             public string Symbol;
             public string Information;
             public string LastRefreshed;
+        }
+
+        public class BestMatchesData
+        {
+            public string nameCheck;
+            //public List<DataObject> Data;
         }
 
         public class SectorData
@@ -175,7 +207,9 @@ namespace WindowsFormsApp1.Libraries
             [EnumDescription("RSI")] Rsi,
             [EnumDescription("SECTOR")] Sector,
             [EnumDescription("TIME_SERIES_INTRADAY")] TimeSeriesIntraday,
-            [EnumDescription("TIME_SERIES_DAILY")] TimeSeriesDaily
+            [EnumDescription("TIME_SERIES_DAILY")] TimeSeriesDaily,
+            [EnumDescription("GLOBAL_QUOTES")] GlobalQuotes,
+            [EnumDescription("SYMBOL_SEARCH")] SymbolSearch
         }
 
         public enum AvIntervalEnum
@@ -197,5 +231,6 @@ namespace WindowsFormsApp1.Libraries
             [EnumDescription("high")] High,
             [EnumDescription("low")] Low,
         }
+
     }
 }
