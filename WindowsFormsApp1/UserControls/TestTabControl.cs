@@ -69,7 +69,7 @@ namespace WindowsFormsApp1.UserControls
                     new AlphaVantageApiWrapper.ApiParam("keywords", "micro"),
                 };
             //parameters.FirstOrDefault(x => x.ParamName == "function").ParamValue = AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.Stoch.ToDescription();
-            var searchItems = await AlphaVantageApiWrapper.GetEndPoint(parameters, apiKey);
+            var searchItems = await AlphaVantageApiWrapper.GetSearchEndPoint(parameters, apiKey);
             var test = searchItems;
 
 
