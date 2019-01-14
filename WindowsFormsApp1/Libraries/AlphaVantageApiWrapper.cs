@@ -82,9 +82,9 @@ namespace WindowsFormsApp1.Libraries
 
             var endPointObject = new AlphaVantageSearchObject
             {
-                BestMatchesData = apiData.First.OfType<JProperty>().Select(x => new BestMatchesData
+                BestMatchesData = apiData.First.First.OfType<JProperty>().Select(x => new BestMatchesData
                 {
-                    Data = x.Values().First().OfType<JProperty>().Select(r => new SearchDataObject
+                    Data = x.First.Values().OfType<JProperty>().Select(r => new SearchDataObject
                     {
                         Key = r.Name,
                         Value = r.Value.ToString()
