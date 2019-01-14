@@ -73,7 +73,7 @@ namespace WindowsFormsApp1.Libraries
             return sectorsObject;
         }
 
-        public static async Task<AlphaVantageSearchObject> GetEndPoint(List<ApiParam> parameters, string apiKey)
+        public static async Task<AlphaVantageSearchObject> GetSearchEndPoint(List<ApiParam> parameters, string apiKey)
         {
             var stringRequest = parameters.Aggregate(@"https://www.alphavantage.co/query?", (current, param) => current + param.ToApiString());
             stringRequest += "&apikey=" + apiKey;
@@ -82,11 +82,17 @@ namespace WindowsFormsApp1.Libraries
 
             var endPointObject = new AlphaVantageSearchObject
             {
-                BestMatchesData = new BestMatchesData
+                BestMatchesData = apiData.First.First.OfType<JProperty>().Select(x => new BestMatchesData
                 {
-                    nameCheck = apiData.First.Values().OfType<JProperty>().Where(x => x.Name == "bestMatches").ToString(),
+                    Data = x.First.Values().OfType<JProperty>().Select(r => new SearchDataObject
+                    {
+                        Key = r.Name,
+                        Value = r.Value.ToString()
+                    }).ToList()
+                       //nameCheck = apiData.First.Values().First().OfType<JProperty>().Where(x => x.Name == "1. symbol").ToList().First().ToString(),
 
-                }
+                })
+                    .ToList()
 
             };
 
@@ -139,7 +145,7 @@ namespace WindowsFormsApp1.Libraries
 
         public class AlphaVantageSearchObject
         {
-            public BestMatchesData BestMatchesData;
+            public List<BestMatchesData> BestMatchesData;
         }
 
         public class AlphaVantageObject
@@ -166,8 +172,7 @@ namespace WindowsFormsApp1.Libraries
 
         public class BestMatchesData
         {
-            public string nameCheck;
-            //public List<DataObject> Data;
+            public List<SearchDataObject> Data;
         }
 
         public class SectorData
@@ -186,6 +191,12 @@ namespace WindowsFormsApp1.Libraries
         {
             public string Key { get; set; }
             public double Value { get; set; }
+        }
+
+        public class SearchDataObject
+        {
+            public string Key { get; set; }
+            public string Value { get; set; }
         }
 
         public class EnumDescription : Attribute
