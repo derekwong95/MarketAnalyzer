@@ -175,7 +175,9 @@ namespace WindowsFormsApp1.Libraries
             [EnumDescription("RSI")] Rsi,
             [EnumDescription("SECTOR")] Sector,
             [EnumDescription("TIME_SERIES_INTRADAY")] TimeSeriesIntraday,
-            [EnumDescription("TIME_SERIES_DAILY")] TimeSeriesDaily
+            [EnumDescription("TIME_SERIES_DAILY")] TimeSeriesDaily,
+            [EnumDescription("GLOBAL_QUOTES")] GlobalQuotes,
+            [EnumDescription("SYMBOL_SEARCH")] SymbolSearch
         }
 
         public enum AvIntervalEnum
