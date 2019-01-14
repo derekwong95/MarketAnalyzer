@@ -35,8 +35,7 @@ namespace WindowsFormsApp1.Libraries
                         Key = r.Name,
                         Value = Convert.ToDouble(r.Value.ToString())
                     }).ToList()
-                })
-                    .ToList()
+                }).ToList()
             };
 
             return generalObject;
@@ -66,8 +65,7 @@ namespace WindowsFormsApp1.Libraries
                         Key = r.Name,
                         Value = Convert.ToDouble(r.Value.ToString().Replace('%', ' '))
                     }).ToList()
-                })
-                    .ToList()
+                }).ToList()
             };
 
             return sectorsObject;
@@ -82,18 +80,15 @@ namespace WindowsFormsApp1.Libraries
 
             var endPointObject = new AlphaVantageSearchObject
             {
-                BestMatchesData = apiData.First.First.OfType<JProperty>().Select(x => new BestMatchesData
+                BestMatchesData = apiData.First.Values().Select(x => new BestMatchesData
                 {
-                    Data = x.First.Values().OfType<JProperty>().Select(r => new SearchDataObject
+                    //Data = new List<SearchDataObject>();
+                    Data = x.OfType<JProperty>().Select(r => new SearchDataObject
                     {
-                        Key = r.Name,
+                        Key = r.Name.Substring(3),
                         Value = r.Value.ToString()
                     }).ToList()
-                       //nameCheck = apiData.First.Values().First().OfType<JProperty>().Where(x => x.Name == "1. symbol").ToList().First().ToString(),
-
-                })
-                    .ToList()
-
+                }).ToList()
             };
 
             return endPointObject;
