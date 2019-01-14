@@ -57,5 +57,22 @@ namespace WindowsFormsApp1.UserControls
             this.chart1.ChartAreas[0].AxisY.Maximum = 104;
             this.chart1.ChartAreas[0].AxisY.Minimum = 100;
         }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            var apiKey = Singleton.Instance.Get();
+            ListViewItem item = new ListViewItem();
+
+            var parameters = new List<AlphaVantageApiWrapper.ApiParam>
+                {
+                    new AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AvFuncationEnum.SymbolSearch.ToDescription()),
+                    new AlphaVantageApiWrapper.ApiParam("keywords", "micro"),
+                };
+            //parameters.FirstOrDefault(x => x.ParamName == "function").ParamValue = AlphaVantageApiWrapper.AlphaVantageApiWrapper.AvFuncationEnum.Stoch.ToDescription();
+            var searchItems = await AlphaVantageApiWrapper.GetSearchEndPoint(parameters, apiKey);
+            var test = searchItems;
+
+
+        }
     }
 }
