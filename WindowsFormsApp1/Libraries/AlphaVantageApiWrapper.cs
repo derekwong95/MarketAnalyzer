@@ -214,6 +214,8 @@ namespace WindowsFormsApp1.Libraries
             [EnumDescription("SECTOR")] Sector,
             [EnumDescription("TIME_SERIES_INTRADAY")] TimeSeriesIntraday,
             [EnumDescription("TIME_SERIES_DAILY")] TimeSeriesDaily,
+            [EnumDescription("TIME_SERIES_WEEKLY")] TimeSeriesWeekly,
+            [EnumDescription("TIME_SERIES_MONTHLY")] TimeSeriesMonthly,
             [EnumDescription("GLOBAL_QUOTES")] GlobalQuotes,
             [EnumDescription("SYMBOL_SEARCH")] SymbolSearch
         }
