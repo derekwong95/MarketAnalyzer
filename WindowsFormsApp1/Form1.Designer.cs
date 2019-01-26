@@ -30,7 +30,6 @@
         {
             this.labelApiName = new System.Windows.Forms.Label();
             this.textBoxApiName = new System.Windows.Forms.TextBox();
-            this.buttonSubmit = new System.Windows.Forms.Button();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.SuspendLayout();
             // 
@@ -52,16 +51,6 @@
             this.textBoxApiName.TabIndex = 1;
             this.textBoxApiName.TextChanged += new System.EventHandler(this.textBoxApiName_TextChanged);
             // 
-            // buttonSubmit
-            // 
-            this.buttonSubmit.Location = new System.Drawing.Point(381, 4);
-            this.buttonSubmit.Name = "buttonSubmit";
-            this.buttonSubmit.Size = new System.Drawing.Size(80, 23);
-            this.buttonSubmit.TabIndex = 3;
-            this.buttonSubmit.Text = "Submit";
-            this.buttonSubmit.UseVisualStyleBackColor = true;
-            this.buttonSubmit.Click += new System.EventHandler(this.buttonSubmit_Click);
-            // 
             // tabControlMain
             // 
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -78,7 +67,6 @@
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1350, 684);
             this.Controls.Add(this.tabControlMain);
-            this.Controls.Add(this.buttonSubmit);
             this.Controls.Add(this.textBoxApiName);
             this.Controls.Add(this.labelApiName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -95,7 +83,6 @@
 
         private System.Windows.Forms.Label labelApiName;
         private System.Windows.Forms.TextBox textBoxApiName;
-        private System.Windows.Forms.Button buttonSubmit;
         private System.Windows.Forms.TabControl tabControlMain;
     }
 }

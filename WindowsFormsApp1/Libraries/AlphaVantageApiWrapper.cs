@@ -71,6 +71,28 @@ namespace WindowsFormsApp1.Libraries
             return sectorsObject;
         }
 
+        public static async Task<AlphaVantageSearchObject> GetQuoteEndPoint(List<ApiParam> parameters, string apiKey)
+        {
+            var stringRequest = parameters.Aggregate(@"https://www.alphavantage.co/query?", (current, param) => current + param.ToApiString());
+            stringRequest += "&apikey=" + apiKey;
+
+            var apiData = await CallAlphaVantageApi(stringRequest);
+
+            var endPointObject = new AlphaVantageSearchObject
+            {
+                BestMatchesData = apiData.Values().Select(x => new BestMatchesData
+                {
+                    Data = x.OfType<JProperty>().Select(r => new SearchDataObject
+                    {
+                        Key = r.Name.Substring(3),
+                        Value = r.Value.ToString()
+                    }).ToList()
+                }).ToList()
+            };
+
+            return endPointObject;
+        }
+
         public static async Task<AlphaVantageSearchObject> GetSearchEndPoint(List<ApiParam> parameters, string apiKey)
         {
             var stringRequest = parameters.Aggregate(@"https://www.alphavantage.co/query?", (current, param) => current + param.ToApiString());
@@ -82,7 +104,6 @@ namespace WindowsFormsApp1.Libraries
             {
                 BestMatchesData = apiData.First.Values().Select(x => new BestMatchesData
                 {
-                    //Data = new List<SearchDataObject>();
                     Data = x.OfType<JProperty>().Select(r => new SearchDataObject
                     {
                         Key = r.Name.Substring(3),
@@ -214,7 +235,7 @@ namespace WindowsFormsApp1.Libraries
             [EnumDescription("SECTOR")] Sector,
             [EnumDescription("TIME_SERIES_INTRADAY")] TimeSeriesIntraday,
             [EnumDescription("TIME_SERIES_DAILY")] TimeSeriesDaily,
-            [EnumDescription("GLOBAL_QUOTES")] GlobalQuotes,
+            [EnumDescription("GLOBAL_QUOTE")] GlobalQuote,
             [EnumDescription("SYMBOL_SEARCH")] SymbolSearch
         }
 
