@@ -71,7 +71,6 @@
             this.buttonAddToList = new System.Windows.Forms.Button();
             this.textBoxSymbol = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -417,7 +416,6 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.comboBox1);
             this.groupBox2.Controls.Add(this.buttonAddToList);
             this.groupBox2.Controls.Add(this.textBoxSymbol);
             this.groupBox2.Controls.Add(this.panel2);
@@ -438,34 +436,27 @@
             this.buttonAddToList.TabIndex = 2;
             this.buttonAddToList.Text = "Add";
             this.buttonAddToList.UseVisualStyleBackColor = true;
+            this.buttonAddToList.Click += new System.EventHandler(this.buttonAddToList_Click);
             // 
             // textBoxSymbol
             // 
+            this.textBoxSymbol.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textBoxSymbol.ForeColor = System.Drawing.SystemColors.InactiveCaption;
             this.textBoxSymbol.Location = new System.Drawing.Point(9, 29);
             this.textBoxSymbol.Name = "textBoxSymbol";
             this.textBoxSymbol.Size = new System.Drawing.Size(204, 30);
             this.textBoxSymbol.TabIndex = 1;
-            this.textBoxSymbol.Text = "Enter Symbol";
-            this.textBoxSymbol.TextChanged += new System.EventHandler(this.textBoxSymbol_TextChanged);
+            this.textBoxSymbol.Text = "ENTER SYMBOL";
             this.textBoxSymbol.Enter += new System.EventHandler(this.textBoxSymbol_Enter);
             this.textBoxSymbol.Leave += new System.EventHandler(this.textBoxSymbol_Leave);
             // 
             // panel2
             // 
+            this.panel2.AutoScroll = true;
             this.panel2.Location = new System.Drawing.Point(219, 29);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1125, 256);
+            this.panel2.Size = new System.Drawing.Size(1119, 256);
             this.panel2.TabIndex = 0;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(44, 140);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 33);
-            this.comboBox1.TabIndex = 3;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // GeneralTabControl
             // 
@@ -530,6 +521,5 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button buttonAddToList;
         private System.Windows.Forms.TextBox textBoxSymbol;
-        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

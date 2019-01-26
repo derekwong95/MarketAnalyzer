@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper\InsertTab.cs" />
+    <Compile Include="Helper\WatchlistSingleton.cs" />
     <Compile Include="Libraries\AlphaVantageApiWrapper.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
