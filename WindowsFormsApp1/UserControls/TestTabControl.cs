@@ -67,7 +67,7 @@ namespace WindowsFormsApp1.UserControls
 
                         //Double.TryParse(test2, out Double result);
                         chart1.ChartAreas[0].AxisX.LabelStyle.Format = "MM/dd/yyyy HH:mm:ss";
-                        //this.chart1.ChartAreas[0].AxisX.Interval = 1;
+                        this.chart1.ChartAreas[0].AxisX.Interval = 1;
                         //this.chart1.ChartAreas[0].AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Days;
                         chart1.ChartAreas[0].AxisX.IntervalOffset = 1;
 
@@ -82,7 +82,6 @@ namespace WindowsFormsApp1.UserControls
         private async void button1_Click(object sender, EventArgs e)
         {
             var apiKey = Singleton.Instance.Get();
-            ListViewItem item = new ListViewItem();
 
             var parameters = new List<AlphaVantageApiWrapper.ApiParam>
                 {
@@ -166,7 +165,7 @@ namespace WindowsFormsApp1.UserControls
 
                         //Double.TryParse(test2, out Double result);
                         chart1.ChartAreas[0].AxisX.LabelStyle.Format = "MM/dd/yyyy HH:mm:ss";
-                        //this.chart1.ChartAreas[0].AxisX.Interval = 1;
+                        this.chart1.ChartAreas[0].AxisX.Interval = 1;
                         //this.chart1.ChartAreas[0].AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Days;
                         chart1.ChartAreas[0].AxisX.IntervalOffset = 1;
 
@@ -186,7 +185,7 @@ namespace WindowsFormsApp1.UserControls
 
             var parameters = new List<AlphaVantageApiWrapper.ApiParam>
                 {
-                    new AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AvFuncationEnum.TimeSeriesDaily.ToDescription()),
+                    new AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AvFuncationEnum.TimeSeriesIntraday.ToDescription()),
                     new AlphaVantageApiWrapper.ApiParam("symbol", ticker),
                     new AlphaVantageApiWrapper.ApiParam("interval", AlphaVantageApiWrapper.AvIntervalEnum.FifteenMinutes.ToDescription()),
                     new AlphaVantageApiWrapper.ApiParam("time_period", "5"),
@@ -204,7 +203,7 @@ namespace WindowsFormsApp1.UserControls
 
             var parameters = new List<AlphaVantageApiWrapper.ApiParam>
                 {
-                    new AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AvFuncationEnum.TimeSeriesDaily.ToDescription()),
+                    new AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AvFuncationEnum.TimeSeriesIntraday.ToDescription()),
                     new AlphaVantageApiWrapper.ApiParam("symbol", ticker),
                     new AlphaVantageApiWrapper.ApiParam("interval", AlphaVantageApiWrapper.AvIntervalEnum.SixtyMinutes.ToDescription()),
                     new AlphaVantageApiWrapper.ApiParam("time_period", "5"),
@@ -260,7 +259,7 @@ namespace WindowsFormsApp1.UserControls
                 {
                     new AlphaVantageApiWrapper.ApiParam("function", AlphaVantageApiWrapper.AvFuncationEnum.TimeSeriesDaily.ToDescription()),
                     new AlphaVantageApiWrapper.ApiParam("symbol", ticker),
-                    new AlphaVantageApiWrapper.ApiParam("interval", AlphaVantageApiWrapper.AvIntervalEnum.Monthly.ToDescription()),
+                    new AlphaVantageApiWrapper.ApiParam("interval", AlphaVantageApiWrapper.AvIntervalEnum.Weekly.ToDescription()),
                     new AlphaVantageApiWrapper.ApiParam("time_period", "100"),
                     new AlphaVantageApiWrapper.ApiParam("series_type", AlphaVantageApiWrapper.AvSeriesType.Open.ToDescription()),
                 };

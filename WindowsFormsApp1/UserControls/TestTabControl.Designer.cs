@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title7 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.loadGraph = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.SearchBox = new System.Windows.Forms.TextBox();
@@ -41,6 +41,7 @@
             this.oneYearButton = new System.Windows.Forms.Button();
             this.fiveYearButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.listView1 = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,30 +58,51 @@
             // 
             // chart1
             // 
-            chartArea7.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea7);
+            chartArea4.AxisX.MajorGrid.Enabled = false;
+            chartArea4.AxisX.MajorTickMark.Enabled = false;
+            chartArea4.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea4);
             this.chart1.Location = new System.Drawing.Point(3, 68);
             this.chart1.Name = "chart1";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series7.IsXValueIndexed = true;
-            series7.Name = "ticker";
-            series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series7.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            this.chart1.Series.Add(series7);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series4.IsXValueIndexed = true;
+            series4.Name = "ticker";
+            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series4.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.chart1.Series.Add(series4);
             this.chart1.Size = new System.Drawing.Size(1335, 524);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart1";
-            title7.BackColor = System.Drawing.Color.Transparent;
-            title7.BorderWidth = 10;
-            title7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            title7.Name = "Stock Price";
-            title7.Text = "Stock Price";
-            this.chart1.Titles.Add(title7);
+            title4.BackColor = System.Drawing.Color.Transparent;
+            title4.BorderWidth = 10;
+            title4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            title4.Name = "Stock Price";
+            title4.Text = "Stock Price";
+            this.chart1.Titles.Add(title4);
             this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             // 
             // SearchBox
             // 
+            this.SearchBox.AutoCompleteCustomSource.AddRange(new string[] {
+            "AMD",
+            "AAPL",
+            "AMZN",
+            "GOOGL",
+            "SNAP",
+            "DIS",
+            "IQ",
+            "NVDA",
+            "SPY",
+            "FB",
+            "V",
+            "MSFT",
+            "EA",
+            "ATVI",
+            "SQ",
+            "CRON"});
+            this.SearchBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.SearchBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.SearchBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SearchBox.Location = new System.Drawing.Point(3, 3);
             this.SearchBox.Name = "SearchBox";
@@ -162,16 +184,25 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(718, 22);
+            this.textBox1.Location = new System.Drawing.Point(533, 45);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(276, 20);
             this.textBox1.TabIndex = 12;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(1051, 9);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(174, 53);
+            this.listView1.TabIndex = 13;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
             // TestTabControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.fiveYearButton);
             this.Controls.Add(this.oneYearButton);
@@ -183,7 +214,7 @@
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.loadGraph);
             this.Name = "TestTabControl";
-            this.Size = new System.Drawing.Size(1334, 687);
+            this.Size = new System.Drawing.Size(1347, 709);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -202,5 +233,6 @@
         private System.Windows.Forms.Button oneYearButton;
         private System.Windows.Forms.Button fiveYearButton;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ListView listView1;
     }
 }
