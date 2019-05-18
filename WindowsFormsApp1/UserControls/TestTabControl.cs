@@ -35,7 +35,7 @@ namespace WindowsFormsApp1.UserControls
             var stock = await AlphaVantageApiWrapper.GetGeneralData(parameters, apiKey);
 
             chart1.Series["ticker"].Points.Clear();
-  
+
             chart1.ChartAreas[0].AxisY.Maximum = Double.NaN; // sets the Maximum to NaN
             chart1.ChartAreas[0].AxisY.Minimum = Double.NaN; // sets the Maximum to NaN
             chart1.ChartAreas[0].RecalculateAxesScale();
@@ -50,16 +50,16 @@ namespace WindowsFormsApp1.UserControls
                     if (stockInfo.Key == "1. open")
                     {
                         double price = stockInfo.Value;
-    
+
                         if (yMaxValue < price)
                         {
                             yMaxValue = price;
                         }
-                        if(yMinValue > price)
+                        if (yMinValue > price)
                         {
                             yMinValue = price;
                         }
-                     
+
                         DateTime dateTime = stocks.Date;
 
                         chart1.Series["ticker"].Points.AddXY(dateTime, price);
@@ -100,7 +100,18 @@ namespace WindowsFormsApp1.UserControls
 
         private void chart1_MouseMove(object sender, MouseEventArgs e)
         {
-            textBox1.Text = e.Location.X + ":" + e.Location.Y;
+
+            //textBox1.Text = e.Location.X + ":" + e.Location.Y;
+            var result = new System.Windows.Forms.DataVisualization.Charting.HitTestResult();
+            result = chart1.HitTest(e.Location.X, e.Location.Y);
+            if (result.ChartElementType == System.Windows.Forms.DataVisualization.Charting.ChartElementType.DataPoint)
+            {
+        
+                textBox1.Text = DateTime.FromOADate(chart1.Series["ticker"].Points[result.PointIndex].XValue) 
+                    + "    " 
+                    + chart1.Series["ticker"].Points[result.PointIndex].YValues[0];
+
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
