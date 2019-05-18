@@ -29,18 +29,11 @@ namespace MarketAnalyzer
             insertTab.AddTestTab(tabControlMain);
         }
 
-        private void buttonSubmit_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void textBoxApiName_TextChanged(object sender, EventArgs e)
         {
             var ApiKey = Singleton.Instance;
             ApiKey.Set(textBoxApiName.Text);
             ApiKey.Get();
         }
-
-
     }
 }
